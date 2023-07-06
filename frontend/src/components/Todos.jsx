@@ -17,6 +17,7 @@ import {
 } from "../redux/actions";
 import Footer from "./Footer";
 import Loading from "./Loading";
+import Error from "./Error";
 
 function Todos() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function Todos() {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <Error error={error} />;
   }
 
   if (!todos) {
