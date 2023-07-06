@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const PORT = process.env.PORT || 4000;
 
-
 //importing database model
 const TodoModel = require("./model");
 
@@ -21,9 +20,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Mongoose connection
-// const url = "mongodb://localhost:27017/todoDB";
+const url = "mongodb://localhost:27017/todoDB";
+// const production_url = process.env.MONGO_URL
 mongoose
-  .connect(process.env.MONGODB_URL, {
+  .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -38,9 +38,9 @@ mongoose
 
 //CRUD operations
 //create a front page where I can welcome everyone to the page
-// app.get("/", (req, res) => {
-//   res.send("Hi there");
-// });
+app.get("/", (req, res) => {
+  res.send("Hi there");
+});
 
 //get all todos
 app.get("/todos", async (req, res) => {
@@ -57,6 +57,7 @@ app.get("/todos", async (req, res) => {
 app.post("/todos", async (req, res) => {
   try {
     const { id, text, completed } = req.body;
+    // console.log(id, text, completed);
     //create a newTodo in the todoSchema format
     const newTodo = new TodoModel({
       id: id,
@@ -100,5 +101,3 @@ app.delete("/todos/:id", async (req, res) => {
     res.statusCode(404).send("Invalid request to delete");
   }
 });
-
-//completed Todo

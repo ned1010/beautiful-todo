@@ -15,8 +15,7 @@ import {
   deleteTodo,
   updateTodo,
 } from "../redux/actions";
-
-
+import Footer from "./Footer";
 
 function Todos() {
   const dispatch = useDispatch();
@@ -83,6 +82,7 @@ function Todos() {
       completed: true,
     };
     dispatch(updateTodo(updatedTodo));
+    window.location = "/";
   };
 
   return (
@@ -110,28 +110,29 @@ function Todos() {
         </div>
 
         <div className="completed">
-        <h3 className="title">Completed Todos</h3>
+          <h3 className="title">Completed Todos</h3>
           <div className="list-container">
-          {todos
-            .filter((item) => item.completed === true)
-            .map((item) => {
-              return (
-                <ul key={item.id} id={item.id} className="todo-list">
-                  <li>
-                    {item.text}
-                    <IconButton
-                      color="error"
-                      onClick={() => removeTodo(item.id)}
-                    >
-                      <DeleteForeverIcon />
-                    </IconButton>
-                  </li>
-                </ul>
-              );
-            })}
+            {todos
+              .filter((item) => item.completed === true)
+              .map((item) => {
+                return (
+                  <ul key={item.id} id={item.id} className="todo-list">
+                    <li>
+                      {item.text}
+                      <IconButton
+                        color="error"
+                        onClick={() => removeTodo(item.id)}
+                      >
+                        <DeleteForeverIcon />
+                      </IconButton>
+                    </li>
+                  </ul>
+                );
+              })}
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
