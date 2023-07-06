@@ -20,10 +20,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Mongoose connection
-const url = "mongodb://localhost:27017/todoDB";
-// const production_url = process.env.MONGO_URL
+// const url = "mongodb://localhost:27017/todoDB";
+const production_url = process.env.MONGODB_URL;
 mongoose
-  .connect(url, {
+  .connect(production_url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
