@@ -6,6 +6,8 @@ const initialState = {
   todos: [],
   isEditing: false,
   updateId: null,
+  loading: null,
+  error: null,
 };
 const todoSlice = createSlice({
   name: "todo",
@@ -55,23 +57,35 @@ const todoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getAllTodos.pending, (state, action) => {
+        state.loading = true;
+      })
       .addCase(getAllTodos.fulfilled, (state, action) => {
-        const todos = {
-          ...state,
-          todos: action.payload,
-        };
-        // console.log(todos);
-        return todos;
+        state.loading = false;
+        state.todos = action.payload;
       })
       .addCase(getAllTodos.rejected, (state, action) => {
-        console.log("error");
+        state.loading = false;
+        state.error = action.error.message;
       })
       .addCase(postTodo.fulfilled, (state, action) => {
-        console.log(action.payload);
-        // state.todos.push(action.payload);
+        state.loading = false;
+      })
+      .addCase(postTodo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteTodo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateTodo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
       })
       .addCase(deleteTodo.rejected, (state, action) => {
-        console.log("rejected");
+        state.loading = false;
+        state.error = state.error.message;
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         console.log("deleted");

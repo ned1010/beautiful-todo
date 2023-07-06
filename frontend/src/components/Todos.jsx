@@ -16,18 +16,33 @@ import {
   updateTodo,
 } from "../redux/actions";
 import Footer from "./Footer";
+import Loading from "./Loading";
 
 function Todos() {
   const dispatch = useDispatch();
   const [todo, setTodo] = useState("");
-
-  const { todos, isEditing, updateId } = useSelector((state) => state.todo);
-
   // console.log(todos);
+
   //getting all the todos from the database
   useEffect(() => {
     dispatch(getAllTodos());
   }, [dispatch]);
+
+  const { todos, isEditing, updateId, loading, error } = useSelector(
+    (state) => state.todo
+  );
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (!todos) {
+    return null;
+  }
 
   //add a new list
   const addNewTodo = (todo) => {

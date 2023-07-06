@@ -8,6 +8,7 @@
 
 .main {
   height: 100vh;
+  overflow: scroll;
 }
 
 .main h2 {
@@ -36,8 +37,8 @@
 
 .alltodos,
 .completed {
-  width: 300px;
-  height: 350px;
+  width: 400px;
+  height: 500px;
   padding: 0.5rem 0 0.8rem 0.5rem;
   border: 1.5px dashed green;
   opacity: 1;
@@ -52,7 +53,7 @@
 }
 
 .list-container {
-  max-height: 340px; /* Set a maximum height to enable vertical scrolling */
+  max-height: 350px; /* Set a maximum height to enable vertical scrolling */
   overflow-y: auto; /* Enable vertical scrolling */
   position: relative;
 }
