@@ -8,7 +8,7 @@ function Loading() {
           fontSize: "50px",
           position: "absolute",
           top: "50%",
-          right: "50%",
+          left: "50%",
           transform: "translate(-50%, -50%)",
           animation: "spin 1s ease-in-out infinite",
           "@keyframes spin": {

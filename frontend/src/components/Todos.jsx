@@ -22,7 +22,7 @@ import Error from "./Error";
 function Todos() {
   const dispatch = useDispatch();
   const [todo, setTodo] = useState("");
-  // console.log(todos);
+  const [reload, setReload] = useState(false);
 
   //getting all the todos from the database
   useEffect(() => {
@@ -32,6 +32,12 @@ function Todos() {
   const { todos, isEditing, updateId, loading, error } = useSelector(
     (state) => state.todo
   );
+
+  useEffect(() => {
+    if (reload) {
+      window.location.href = "/";
+    }
+  }, [reload]);
 
   if (loading) {
     return <Loading />;
@@ -59,8 +65,7 @@ function Todos() {
         completed: false,
       };
       // dispatch(addTodo(newTodo));
-      dispatch(postTodo(newTodo));
-      window.location = "/";
+      dispatch(postTodo(newTodo)).then(() => setReload(true));
     } else {
       //get the id to update
       const updateID = updateId;
@@ -69,16 +74,14 @@ function Todos() {
         text: todo,
       };
       //dispatch update
-      dispatch(updateTodo(updatedTodo));
-      window.location = "/";
+      dispatch(updateTodo(updatedTodo)).then(() => setReload(true));
     }
   };
 
   //delete
   const removeTodo = (id) => {
     //dispatch id to remove
-    dispatch(deleteTodo(id));
-    window.location = "/";
+    dispatch(deleteTodo(id)).then(() => setReload(true));
   };
 
   const update = (id) => {
@@ -97,8 +100,7 @@ function Todos() {
       text: itemToUpdate.text,
       completed: true,
     };
-    dispatch(updateTodo(updatedTodo));
-    window.location = "/";
+    dispatch(updateTodo(updatedTodo)).then(() => setReload(true));
   };
 
   return (
