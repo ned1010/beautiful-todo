@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "http://localhost:4000/todos";
+// const url = "http://localhost:4000/todos";
+const url = "https://beautiful-todo-eight.vercel.app/todos";
 //create all the thunk functions
 export const getAllTodos = createAsyncThunk("/todos/getAllTodos", async () => {
   const response = await axios.get(url);
